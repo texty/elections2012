@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8"/>
+  <title>Інтерактивна мапа з результатами виборів до Верховної Ради у 2012 році</title>
+
+  <meta name="description" content="Всі графіки - інтерактивні, і можна вибирати на них інтервали із різними значеннями відповідного параметру (розміру дільниці, явці, тощо). В залежності від цього буде мінятися карта. Коліром показана різниця між результатом обраних партій">
+
+  <meta property="fb:app_id" content="329250623807149">
+  <meta property="fb:admins" content="100002400468764">
+  <meta property="fb:admins" content="100000560537150">
+  <meta property="fb:admins" content="665334524">
+  <meta property="fb:admins" content="735028363">
+
+  <meta property="og:title" content="Інтерактивна мапа з результатами виборів до Верховної Ради у 2012 році">
+  <meta property="og:description" content="Всі графіки - інтерактивні, і можна вибирати на них інтервали із різними значеннями відповідного параметру (розміру дільниці, явці, тощо). В залежності від цього буде мінятися карта. Коліром показана різниця між результатом обраних партій">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://texty.org.ua/mod/datavis/apps/elections2012/">
+
+  <!-- <meta property="og:image" content=""> -->
+  <!-- <meta property="og:image:width" content="1200"> -->
+  <!-- <meta property="og:image:height" content="630"> -->
+
+  <meta name="twitter:title" content="Інтерактивна мапа з результатами виборів до Верховної Ради у 2012 році">
+  <meta name="twitter:description" content="Всі графіки - інтерактивні, і можна вибирати на них інтервали із різними значеннями відповідного параметру (розміру дільниці, явці, тощо). В залежності від цього буде мінятися карта. Коліром показана різниця між результатом обраних партій">
+  <meta name="twitter:site" content="@textyorgua" />
+  <!-- <meta name="twitter:card" content="summary_large_image" /> -->
+  <!-- <meta name="twitter:image" content=""> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed|Didact+Gothic&subset=latin,cyrillic' 
+    rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+<!-- Дата публікації — 2012-12-21 14:55:59 -->
+
+
+<style>
+
+#body {
+  position: relative;
+  width: 990px;
+  font-family: Ubuntu Condensed;
+  margin: 0 auto;
+}
+
+footer {
+  padding: 2em 0 1em 0;
+  font-size: 12px;
+}
+
+h1 {
+  font-size: 36px;
+  margin-top: .3em;
+  margin-bottom: 0;
+}
+
+h1 + h2 {
+  margin-top: 0;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 28px;
+}
+
+h1, h2 {
+}
+
+#body > p {
+  line-height: 1.5em;
+  width: 640px;
+  text-rendering: optimizeLegibility;
+}
+
+#charts {
+  padding: 10px 0;
+}
+
+.chart {
+  display: inline-block;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.reset {
+  padding-left: 1em;
+  font-size: smaller;
+  color: #ccc;
+}
+
+#turnout-chart-2 {
+    left: 170px;
+    position: relative;
+    top: 30px;
+    width: 420px;
+
+}
+
+#mano-a-mano{
+  margin-top: 20px;
+  width: 300px;
+}
+#invalid {
+    left: 100px;
+    position: relative;
+    top: -40px;
+    width: 330px;
+
+}
+
+.background.bar {
+  fill: #ececec;
+}
+
+.foreground.bar {
+  fill: #ccc;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.brush rect.extent {
+  fill: gray;
+  fill-opacity: .125;
+}
+
+.brush .resize path {
+  fill: #eee;
+  stroke: #666;
+}
+
+#ovk-chart {
+}
+
+#size-chart {
+  width: 790px;
+}
+
+#distance-chart {
+  width: 420px;
+}
+
+#date-chart {
+  width: 920px;
+}
+
+#flight-list {
+  /*min-height: 1024px;*/
+}
+
+#flight-list .date,
+#flight-list .day {
+  margin-bottom: .4em;
+}
+
+#flight-list .flight {
+  line-height: 1.5em;
+  background: #eee;
+  width: 640px;
+  margin-bottom: 1px;
+}
+
+#flight-list .time {
+  color: #999;
+}
+
+#flight-list .flight div {
+  display: inline-block;
+  width: 100px;
+}
+
+#flight-list div.distance,
+#flight-list div.delay {
+  width: 160px;
+  padding-right: 10px;
+  text-align: right;
+}
+
+#flight-list .early {
+  color: green;
+}
+
+aside{
+    font-size: 1em;
+    left: 750px;
+    position: absolute;
+    top: 80px;
+    width: 220px;
+}
+
+
+.title {font-size: 0.8em;}
+
+</style>
+
+<div id="body">
+
+<h1 style="margin-bottom: 20px;">Результати парламентських виборів (партії), 2012 рік </h1>
+<aside id="totals">Обрано <span id="active">-</span> з  <span id="total">-</span> виборчих дільниць. 
+	<br/><br/>~<span id="pr">-</span> мандатів для ПР 
+	<br/>~<span id="kpu">-</span> мандатів для КПУ 
+	<br/>~<span id="but">-</span> мандатів для "Батьківщини" 
+	<br/>~<span id="udar">-</span> мандатів для УДАРу 
+	<br/>~<span id="svoboda">-</span> мандатів для Свободи 
+</aside>
+
+
+<div style="height: 400px;"><canvas id="chart"></canvas></div>
+<div id="charts">
+  <div id="size-chart" class="chart">
+    <div class="title">Розмір дільниці</div>
+  </div>
+  <div id="turnout-chart" class="chart">
+    <div class="title"><span style="margin-left: 0px;">Явка</span></div>
+  </div>
+  <div id="turnout-chart-2" class="chart">
+    <div class="title"><span style="margin-left: 50px">Явка з 16-00 до 20-00</span></div>
+  </div>
+  <div id="invalid" class="chart">
+    <div class="title"><span style="margin-left: 150px">Недійсні</span></div>  </div>
+  <div id="mano-a-mano" class="chart">
+    <div class="title"> <label><input  class="partycolor" id="but_box" type='checkbox' checked>Батьк.</label>, 
+				<input class="partycolor" id="udar_box" type='checkbox' checked>УДАР</label>, 
+			<input id="svob_box" class="partycolor" type='checkbox' checked>"Свобода"</label> проти  
+				<input id="pr_box" class="partycolor" type='checkbox' checked>ПР</label>, 
+				<input id="kpu_box" class="partycolor" type='checkbox' checked>КПУ</label></div>
+  </div>
+  <div id="region" class="chart">
+    <div class="title"><span style="margin-left: 50px">Регіон</span></div>
+  </div>
+  <div id="ovk-chart" class="chart">
+    <div class="title"><span style="margin-left: 300px">№ ОВК</span></div>
+  </div>
+ </div>
+
+
+<div id="lists">
+  <div id="flight-list" style="width: 900px; margin-top: 20px; margin-bottom: 50px;"><p> Всі графіки - інтерактивні, і можна вибирати на них інтервали із різними значеннями відповідного параметру (розміру дільниці, явці, тощо). В залежності від цього буде мінятися карта. Коліром показана різниця між результатом обраних партій. Більший результат "провладних" - КПУ та ПР, показаний синім кольором, рівні результати - сірим кольором, перевага Батьківщини, УДАРу та Свободи показана помаранчевим кольором</p>
+
+<span style="font-size: 0.8em; font-style: italic;">Дані - <a href="http://cvk.gov.ua">Центральна Виборча Комісія</a>, 2012 рік. Джерело географічних даних - <a href="http://openstreetmap.org">проект OpenStreetMap</a>. Зроблено за допомогою <a href="http://d3js.org">d3.js</a> та <a href="http://square.github.com/crossfilter/">crossfilter.js</a> </span></div>
+</div>
+
+</div>
+
+
+<script src="crossfilter.v1.min.js"></script>
+<script type="text/javascript" src="d3.v3.min.js"></script>
+<script src="queue.v1.min.js"></script>
+<script src="main.js"></script>
+
+
+
+</body>
+</html>
